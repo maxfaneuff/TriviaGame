@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Trivia Game Pseudo</title>
+</head>
+<body>
+	<h1>Trivia Game Pseudo</h1>
+	<br><br>
+	<h2>User Interface</h2>
+	<p>On load, a screen w/ the Trivia Game box appears, along w/ a clickable start button</p>
+	<p>When clicked, the first question screen appears.  It has three elements</p>
+	<ul>
+		<li>A timer, counting down from 30</li>
+		<li>A question</li>
+		<li>Four clickable optoins</li>
+	</ul>
+	<p>When an option is clicked, the timer, question and optoins are replaced w/ a right/wrong statement, along w/ a gif.  <strong>In the background</strong>, a timer counts down from 5 and, when it hits zero, a new question is loaded.  If no answer is clicked, a timeout statement is displayed w/ the gif</p>
+	<p>Repeat this process 5-7 times</p>
+	<p>At the end of the game, the # of correct, incorrect, and unanswered selections are displayed.  A reset button is displayed, and when clicked, the game is reloaded from the beginning</p>
+	<br>
+	<h2>Variables</h2>
+	<ul>
+		<li><strong>questionTimer</strong> - A variable to hold the setInterval of the question countdown timer.  It begins running when a new question page is loaded.  When it hits zero, it triggers a new page showing the answer and a timeout statement.  When an option is clicked on, clearInterval(questionTimer) is performed</li>
+		<li><strong>nextQuestion</strong> - A variable to hold the setInterval of the next question timer, to be running out of view of the user.  It begins running when an answer screen loads, or put anothe way, when either an answer selection is clicked, or questionTimer hits zero.  When nextQuestion hits zero, the function that loads a new question and runs questionTimer is performed, and we can clearInterval(nextQuestion).</li>
+		<li><strong>Questions</strong> - An array of questions.  Each one is displayed in the question div for each question</li>
+		<li><strong>Options</strong> - An object of answers to be loaded along with each question, and appended to the answer div.  They're going to need values of right/wrong</li>
+		<li><strong>isStarted</strong> - A boolean value, to start as "false".  When the start/restart button is clicked, it's set to true, and that's what triggers the first running of the game functions.  When we go through all the questions, that variable is reset to false</li>
+		<li><strong>isClicked</strong> - a boolean value, set to "false" at the start of the game.  When an answer option is clicked, it's set to "true", and that triggers an if/else statement to run the answer function</li>
+		<li><strong>answerChoice</strong> - stores the option clicked, to be plugged into the answer function.</li>
+		<li><strong>rightAnswers</strong> - An array of the right answers.
+		<li><strong>Correct</strong> - A variable to hold the number of correct answers</li>
+		<li><strong>Incorrect</strong> - A variable to hold the number of incorrect answers</li>
+		<li><strong>Unanswered</strong> - A variable to hold the number of unanswered questions.  If no answer is clicked, and questionTimer hits zero, Unanswered++</li>
+	</ul>
+	<br>
+	<h2>Functions and Conditionals</h2>
+	<p><strong>function askQuestion(question/answers num)</strong> - if (isStarted === true), or, if (nextQuestion === 0), run the function.  Print questionTimer to timer div.  Start the questionTimer setInterval at 30, and count down by 1. Append an answer JSON info to the answer div.  Print a question to the question div.</p>
+	<p><strong>function checkAnswer()</strong> - if (questionTimer === 0), display the timeout statement along w/ a gif, and unanswered++.  if (rightAnswers.indexOf(answerChoice) != -1), display the "right answer" prompt, along w/ a gif, and correct++.  if (rightAnswers.indexOf(answerChoice) === -1), display a wrong answer prompt, along w/ a gif, and incorrect++.  All of these conditions start the nextQuestion timer, and clearInterval(questionTimer).  $.when(nextQuestion === 0).then(askQuestion(2));</p>
+	
+
+</body>
+</html>

@@ -1,0 +1,54 @@
+body {
+	background-image: url(https://github.com/maxfaneuff/TriviaGame/blob/master/assets/images/cheap_diagonal_fabric.png?raw=true);
+}
+
+#title {
+	text-align: center;
+
+}
+
+#question-screen {
+	width: 95%;
+	height: 600px;
+	text-align: center;
+	border-style: solid;
+	border-color: blue;
+	border-width: 5px;
+	padding: 10px;
+	margin: 10px;
+	background-color: white;
+	position: relative;
+}
+
+.text {
+	font-size: 40px;
+	position: absolute;
+	top: 200px;
+	left: 550px;
+}
+
+#question {
+	font-size: 35px;
+	top: 250px;
+}
+
+.options {
+	font-size: 35px;
+	
+}
+
+#optionOne {
+	top: 350px;
+}
+
+#optionTwo {
+	top: 400px;
+}
+
+#optionThree {
+	top: 450px;
+}
+
+#optionFour {
+	top: 500px;
+}

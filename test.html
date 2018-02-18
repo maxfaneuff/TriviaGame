@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Chappelle's Show Trivia!</title>
+	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script type="text/javascript" src="assets/javascript/app.js"></script>
+</head>
+<body>
+
+<div id=title>
+	<h1>Chappelle's Show Trivia!</h1>
+</div>
+
+<section id=question-screen>
+	<div class="text" id="timer">Time Remaining: 30</div>
+	<div class="text" id="question">Question goes here</div>
+	<div class="text options" id="optionOne">Options append here</div>
+	<div class="text options" id="optionTwo">Options append here</div>
+	<div class="text options" id="optionThree">Options append here</div>
+	<div class="text options" id="optionFour">Options append here</div>
+</section>
+
+<section id="answer-screen">
+	<div id="win-lose">You got it wrong/right/unanswered</div>
+	<div id="gif">A .gif goes here</div>	
+</section>
+
+</body>
+
+<script>
+var questionTimer;
+//holds the interval of the question.  when askQuestion runs, start decrementing the interval of this by 1, until it gets to 0.  If it hits zero before anything is clicked, run checkAnswer.  When checkAnswer runs, clearInterval(questionTimer).  Print this to the timer div//
+var answerTimer;
+//holds the interval of the check answer slate.  When checkAnswer runs, start decrementing this by 1, until it gets to zero.  When it gets to zero, run askQuestion again, questionNum++.  When askQuestion runs, clearInterval(nextQuestion).
+var questions = ["Who wins Hater of the Year?", "What do the five fingers say to the face?", "Which delegation chooses Tiger Woods in the Racial Draft?", "Is pimpin easy?", "What is the official beer of the show?"];
+//An array of questions.  This gets printed to the question div by incrementing the questionNum by one each time nextQuestion runs.  
+var options = [
+                ["Beautiful", "Buc Nasty", "Pit Bull", "Silky Johnson"], 
+                ["Byaaah!", "Slap!", "Kapow!", "Booh-Yah!"],
+                ["The Black Delegation", "The Jewish Delegation", "The White Delegation", "The Asian Delegation"],
+                ["Yeah", "Hell Yeah", "Nah", "Big Daddy Kane would say Pimpin Ain't Easy"],
+                ["Coors Light", "Samuel Adams", "Pabst Blue Ribbon", "Samuel Jackson"]
+            ];
+//An array of the options for each question.  Each index of options is it's own array.  We can print these with questionNum, the same way we print questions.  
+var isStarted = false;
+var isClicked = false;
+var answerChoice = [];
+var rightAnswers = ["Silky Johnson", "Slap!", "The Black Delegation", "Yeah", "Hell Yeah", "Nah", "Big Daddy Kane would say Pimpin Ain't Easy", "Samuel Jackson"];
+var correct = 0;
+var incorrect = 0;
+var unanswered = 0;
+var questionNum = 0;
+var questionClock = 10;
+var answerClock = 5;
+//When called, askQuestions does the following//
+    //clearInterval(answerTimer)
+    //hide the #answer-screen section, and show the #question-screen section
+    //decrement the timer by 1, as soon as the screen loads
+    //print the specific question to #questions, using the questionNum to cycle through.  questions[questionNum]
+    //print the options of the corresponding options array to #options, using the same method.  options[questionNum]
+    //all of the options have to be INDIVIDUALLY clickable.  Each option needs to assign its corresponding div a value of that option
+    //print the timer to the timer div.  Start at 30 seconds
+    //When an option is clicked, push the value of that div to the answerChoice string.
+    //Check the newly pushed answerChoice string against rightAnswers, to see if answerChoice is an indexOf rightAnswers
+    //call checkAnswer, with the value of the selection as the argument
+function askQuestion() {
+    clearInterval(answerTimer);
+    questionTimer = setInterval(count, 1000);
+//prints the appropriate question & options//
+    $("#question").text(questions[questionNum]);
+    $("#optionOne").text(options[questionNum][0]);
+    $("#optionTwo").text(options[questionNum][1]);
+    $("#optionThree").text(options[questionNum][2]);
+    $("#optionFour").text(options[questionNum][3]);
+//assigns a value of each options div to the corresponding option from the array//
+    $("#optionOne").val(options[questionNum][0]);
+    $("#optionTwo").val(options[questionNum][1]);
+    $("#optionThree").val(options[questionNum][2]);
+    $("#optionFour").val(options[questionNum][3]);
+//grabs the value of a clicked option & enters it into the answerChoice array//
+    $(".options").on("click", function() {
+        answerChoice.push($(this).val());
+        console.log(answerChoice);
+    })
+}
+function count() {
+    questionClock--;
+    console.log(questionClock);
+    console.log("-----------");
+    console.log(questionTimer);
+    if(questionClock == 0) {
+        stopQuestionClock();
+    }
+    $("#timer").text("Time Remaining: " + questionClock);
+}
+function stopQuestionClock() {
+    clearInterval(questionTimer);
+}
+</script>

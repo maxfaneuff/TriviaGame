@@ -44,6 +44,7 @@ var options = [
 				["Coors Light", "Samuel Adams", "Pabst Blue Ribbon", "Samuel Jackson"]
 			];
 //An array of the options for each question.  Each index of options is it's own array.  We can print these with questionNum, the same way we print questions.  
+var gifs = ["https://github.com/maxfaneuff/TriviaGame/blob/master/assets/images/silky.gif?raw=true", "https://github.com/maxfaneuff/TriviaGame/blob/master/assets/images/slap.gif?raw=true", "https://github.com/maxfaneuff/TriviaGame/blob/master/assets/images/tiger.gif?raw=true", "https://github.com/maxfaneuff/TriviaGame/blob/master/assets/images/pimpin.gif?raw=true", "https://github.com/maxfaneuff/TriviaGame/blob/master/assets/images/samuel_jackson.gif?raw=true"];
 var isStarted = false;
 var isClicked = false;
 var answerChoice = [];
@@ -73,7 +74,7 @@ function askQuestion() {
 
 	clearInterval(answerTimer);
 
-	questionTimer = setInterval(count, 1000);
+	questionTimer = setInterval(questionCount, 1000);
 
 //prints the appropriate question & options//
 	$("#question").text(questions[questionNum]);
@@ -96,25 +97,72 @@ function askQuestion() {
 			wrongAnswer();
 		}	else if(rightAnswers.indexOf(answerChoice) != -1) {
 			rightAnswer();
-		}	else if(questionClock === 0) {
-			timeout();
-		}
+		}	
 	})
+	if(questionClock === 0) {
+		timeout();
+	}
 
 }
 
+//When called, checkAnswer does the following//
+	//.hide the #question-screen section, and display the #answer-screen section
+	//clearInterval(questionTimer)
+	//setInterval(answerTimer).  Begin decrementing the timer by 1, starting at :05
+	//.empty() the timer, question, and options divs
+	//questionNum++
+	//if (rightAnswers.indexOf(answerChoice != -1)) - $("#answer-statement").text("You got it right!  YEAAAAAAAAH!").  Correct++
+	//if else (rightAnswers.indexOf(answerChoice === -1)) - $("#answer-statement").text("You got it wrong...").  Incorrect++
+	//if else (questionTimer === 0) - $("#answer-statement").text("Time's up!  HWHAAAAAAAT?").  Unanswered++
+	//for all conditions, display the approrpriate .gif
+	//when answerTimer === 0, call askQuestion.  
+
+//function for when an answer is wrong.//
+	//displays appropriate text & gif//
+	//incorrect++//
+	//starts the answer timer//
+	//runs resetQuestionTimer(), which clearIntervals(questionTimer), and sets questionClock to 10 again//
 function wrongAnswer() {
 	$("#question-screen").hide();
 	$("#answer-screen").show();
-	$("#win-lose").text("Sorry, that's incorrect...")
+	$("#win-lose").text("Sorry, that's incorrect...");
+	$("#gif").html("<img src=" + gifs[questionNum] + "alt=gif>");
+	
+	incorrect++;
 
-	clearInterval(questionTimer);
 
 	answerTimer = setInterval(answerCount, 1000);
+	resetQuestionTimer();
 
 }
 
-function count() {
+function timeout() {
+	$("#question-screen").hide();
+	$("#answer-screen").show();
+	$("#win-lose").text("Time's up!  HWHAAAAAAAT?!!");
+	$("#gif").html("<img src=" + gifs[questionNum] + "alt=gif>");
+
+	unanswered++;
+
+	answerTimer = setInterval(answerCount, 1000);
+	resetQuestionTimer();
+}
+
+function answerCount() {
+	answerClock--;
+	console.log(answerClock);
+
+	if(answerClock === 0) {
+		questionNum++;
+		resetQuestionTimer();
+		stopAnswerClock();
+		askQuestion();
+	}
+
+
+}
+
+function questionCount() {
 	questionClock--;
 	console.log(questionClock);
 	console.log("-----------");
@@ -129,18 +177,17 @@ function stopQuestionClock() {
 	clearInterval(questionTimer);
 }
 
+function stopAnswerClock() {
+	clearInterval(answerTimer);
+}
+
+function resetQuestionTimer() {
+	clearInterval(questionTimer);
+	questionClock = 10;
+	console.log(questionClock);
+	console.log(questionTimer);
+}
 // askQuestion();
-//When called, checkAnswer does the following//
-	//.hide the #question-screen section, and display the #answer-screen section
-	//clearInterval(questionTimer)
-	//setInterval(answerTimer).  Begin decrementing the timer by 1, starting at :05
-	//.empty() the timer, question, and options divs
-	//questionNum++
-	//if (rightAnswers.indexOf(answerChoice != -1)) - $("#answer-statement").text("You got it right!  YEAAAAAAAAH!").  Correct++
-	//if else (rightAnswers.indexOf(answerChoice === -1)) - $("#answer-statement").text("You got it wrong...").  Incorrect++
-	//if else (questionTimer === 0) - $("#answer-statement").text("Time's up!  HWHAAAAAAAT?").  Unanswered++
-	//for all conditions, display the approrpriate .gif
-	//when answerTimer === 0, call askQuestion.  
 
 
 

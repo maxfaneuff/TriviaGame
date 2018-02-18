@@ -4,8 +4,8 @@
 	<title>Chappelle's Show Trivia!</title>
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<script type="text/javascript" src="assets/javascript/app.js"></script>
-</head>
+<!-- 	<script type="text/javascript" src="assets/javascript/app.js"></script>
+ --></head>
 <body>
 
 <div id=title>
@@ -22,7 +22,7 @@
 </section>
 
 <section id="answer-screen">
-	<div id="win-lose">You got it wrong/right/unanswered</div>
+	<div id="win-lose">You got it right/wrong/timeout</div>
 	<div id="gif">A .gif goes here</div>	
 </section>
 
@@ -68,6 +68,9 @@ var answerClock = 5;
 	//Check the newly pushed answerChoice string against rightAnswers, to see if answerChoice is an indexOf rightAnswers
 	//call checkAnswer, with the value of the selection as the argument
 function askQuestion() {
+	$("#question-screen").show();
+	$("#answer-screen").hide();
+
 	clearInterval(answerTimer);
 
 	questionTimer = setInterval(count, 1000);
@@ -89,7 +92,25 @@ function askQuestion() {
 	$(".options").on("click", function() {
 		answerChoice.push($(this).val());
 		console.log(answerChoice);
+		if(rightAnswers.indexOf(answerChoice) === -1) {
+			wrongAnswer();
+		}	else if(rightAnswers.indexOf(answerChoice) != -1) {
+			rightAnswer();
+		}	else if(questionClock === 0) {
+			timeout();
+		}
 	})
+
+}
+
+function wrongAnswer() {
+	$("#question-screen").hide();
+	$("#answer-screen").show();
+	$("#win-lose").text("Sorry, that's incorrect...")
+
+	clearInterval(questionTimer);
+
+	answerTimer = setInterval(answerCount, 1000);
 
 }
 
@@ -107,6 +128,8 @@ function count() {
 function stopQuestionClock() {
 	clearInterval(questionTimer);
 }
+
+// askQuestion();
 //When called, checkAnswer does the following//
 	//.hide the #question-screen section, and display the #answer-screen section
 	//clearInterval(questionTimer)
@@ -119,14 +142,10 @@ function stopQuestionClock() {
 	//for all conditions, display the approrpriate .gif
 	//when answerTimer === 0, call askQuestion.  
 
-function checkAnswer(selection) {
 
 
 
-}
-
-
-
+askQuestion();
 </script>
 
 </html>

@@ -7,7 +7,7 @@ body {
 
 }
 
-#question-screen {
+#question-screen, #answer-screen {
 	width: 95%;
 	height: 600px;
 	text-align: center;
@@ -29,6 +29,19 @@ body {
 
 #question {
 	font-size: 35px;
+	top: 250px;
+}
+
+#win-lose {
+	font-size: 45px;
+	position: absolute;
+	top: 200px;
+	left: 450px;
+}
+
+#gif {
+	position: absolute;
+	left: 450px;
 	top: 250px;
 }
 

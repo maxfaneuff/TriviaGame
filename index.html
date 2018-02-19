@@ -12,8 +12,15 @@
 	<h1>Chappelle's Show Trivia!</h1>
 </div>
 
+<section id="start-screen">
+	<div id="welcome">
+		<h1>Welcome to Chappelle's Show Trivia!</h1></div>
+	<div id="begin">Click to Begin!</div>
+</section>
+
+</section>
 <section id=question-screen>
-	<div class="text" id="timer">Time Remaining: 30</div>
+	<div class="text" id="timer">Time Remaining: 10</div>
 	<div class="text" id="question">Question goes here</div>
 	<div class="text options" id="optionOne">Options append here</div>
 	<div class="text options" id="optionTwo">Options append here</div>
@@ -24,6 +31,16 @@
 <section id="answer-screen">
 	<div id="win-lose">You got it right/wrong/timeout</div>
 	<div id="gif">A .gif goes here</div>	
+</section>
+
+<section id="results-screen">
+	<div id="results">Here's your results</div>
+	<div id="correct-num">Correct: </div>
+	<div id="incorrect-num">Incorrect: </div>
+	<div id="unanswered-num">Unanswered: </div>
+	<div id="end-gif">
+		<img src="https://github.com/maxfaneuff/TriviaGame/blob/master/assets/images/liljon.gif?raw=true" alt="liljon"></div>	
+	<div id="replay">Click to Replay</div>
 </section>
 
 </body>
@@ -56,7 +73,22 @@ var questionNum = 0;
 var questionClock = 10;
 var answerClock = 5;
 
+$(document).ready(function() {
+	$("#start-screen").show();
+	$("#question-screen").hide();
+	$("#answer-screen").hide();
+	$("#results-screen").hide();
+})
 
+function newGame() {
+	correct = 0;
+	incorrect = 0;
+	unanswered = 0;
+	questionNum = 0;
+	questionClock = 10;
+	answerClock = 5;
+	askQuestion();
+}
 //When called, askQuestions does the following//
 	//clearInterval(answerTimer)
 	//hide the #answer-screen section, and show the #question-screen section
@@ -71,6 +103,8 @@ var answerClock = 5;
 function askQuestion() {
 	$("#question-screen").show();
 	$("#answer-screen").hide();
+	$("#results-screen").hide();
+	$("#start-screen").hide();
 
 	resetAnswerTimer();
 
@@ -93,7 +127,6 @@ function askQuestion() {
 //grabs the value of a clicked option & enters it into the answerChoice array//
 	$(".options").on("click", function() {
 		answerChoice.push($(this).val());
-		console.log(answerChoice);
 		isClicked = true;	
 		if(rightAnswers.indexOf(answerChoice.toString()) != -1) {
 			rightAnswer();
@@ -101,8 +134,10 @@ function askQuestion() {
 			wrongAnswer();
 		}	
 	})
-	
 
+	$("#replay").on("click", function() {
+		newGame();
+	})
 
 //When called, checkAnswer does the following//
 	//.hide the #question-screen section, and display the #answer-screen section
@@ -125,6 +160,9 @@ function askQuestion() {
 function wrongAnswer() {
 	$("#question-screen").hide();
 	$("#answer-screen").show();
+	$("#results-screen").hide();
+	$("#start-screen").hide();
+
 	$("#win-lose").text("Sorry, that's incorrect...");
 	$("#gif").html("<img src=" + gifs[questionNum] + "alt=gif>");
 	
@@ -137,6 +175,9 @@ function wrongAnswer() {
 function rightAnswer() {
 	$("#question-screen").hide();
 	$("#answer-screen").show();
+	$("#results-screen").hide();
+	$("#start-screen").hide();
+
 	$("#win-lose").text("You got it right!  YEAAAAAAAAH");
 	$("#gif").html("<img src=" + gifs[questionNum] + "alt=gif>");
 
@@ -149,6 +190,9 @@ function rightAnswer() {
 function timeout() {
 	$("#question-screen").hide();
 	$("#answer-screen").show();
+	$("#results-screen").hide();
+	$("#start-screen").hide();
+
 	$("#win-lose").text("Time's up!  HWHAAAAAAAT?!!");
 	$("#gif").html("<img src=" + gifs[questionNum] + "alt=gif>");
 
@@ -160,10 +204,14 @@ function timeout() {
 
 function answerCount() {
 	answerClock--;
-	console.log(answerClock);
 
 	if(answerClock === 0) {
 		questionNum++;
+			if(questionNum > 4) {
+			resultsScreen();
+			resetAnswerTimer();
+			return;
+			}	
 		answerChoice.length = 0;
 		resetQuestionTimer();
 		stopAnswerClock();
@@ -173,9 +221,7 @@ function answerCount() {
 
 function questionCount() {
 	questionClock--;
-	console.log(questionClock);
-	console.log("-----------");
-	console.log(questionTimer);
+	
 	if(questionClock === 0) {
 		stopQuestionClock();
 		timeout();
@@ -194,8 +240,7 @@ function stopAnswerClock() {
 function resetQuestionTimer() {
 	clearInterval(questionTimer);
 	questionClock = 10;
-	console.log(questionClock);
-	console.log(questionTimer);
+	
 }
 
 function resetAnswerTimer() {
@@ -203,7 +248,23 @@ function resetAnswerTimer() {
 	answerClock = 5;
 
 }
-// askQuestion();
+
+function resultsScreen() {
+	$("#results-screen").show();
+	$("#question-screen").hide();
+	$("#answer-screen").hide();
+	$("#start-screen").hide();
+
+	$("#correct-num").text("Correct:  " + correct);
+	$("#incorrect-num").text("Incorrect:  " + incorrect);
+	$("#unanswered-num").text("Unanswered:  " + unanswered);
+	console.log(questionTimer);
+	console.log(answerTimer);
+
+
+
+}
+askQuestion();
 
 
 

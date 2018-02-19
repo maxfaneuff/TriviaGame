@@ -72,7 +72,7 @@ function askQuestion() {
 	$("#question-screen").show();
 	$("#answer-screen").hide();
 
-	clearInterval(answerTimer);
+	resetAnswerTimer();
 
 	questionTimer = setInterval(questionCount, 1000);
 
@@ -93,17 +93,16 @@ function askQuestion() {
 	$(".options").on("click", function() {
 		answerChoice.push($(this).val());
 		console.log(answerChoice);
-		if(rightAnswers.indexOf(answerChoice) === -1) {
-			wrongAnswer();
-		}	else if(rightAnswers.indexOf(answerChoice) != -1) {
+		isClicked = true;	
+		if(rightAnswers.indexOf(answerChoice.toString()) != -1) {
 			rightAnswer();
+		} else {
+			wrongAnswer();
 		}	
 	})
-	if(questionClock === 0) {
-		timeout();
-	}
-
+	
 }
+
 
 //When called, checkAnswer does the following//
 	//.hide the #question-screen section, and display the #answer-screen section
@@ -130,10 +129,20 @@ function wrongAnswer() {
 	
 	incorrect++;
 
-
-	answerTimer = setInterval(answerCount, 1000);
 	resetQuestionTimer();
+	answerTimer = setInterval(answerCount, 1000);
+}
 
+function rightAnswer() {
+	$("#question-screen").hide();
+	$("#answer-screen").show();
+	$("#win-lose").text("You got it right!  YEAAAAAAAAH");
+	$("#gif").html("<img src=" + gifs[questionNum] + "alt=gif>");
+
+	correct++;
+
+	resetQuestionTimer();
+	answerTimer = setInterval(answerCount, 1000);
 }
 
 function timeout() {
@@ -144,8 +153,8 @@ function timeout() {
 
 	unanswered++;
 
-	answerTimer = setInterval(answerCount, 1000);
 	resetQuestionTimer();
+	answerTimer = setInterval(answerCount, 1000);
 }
 
 function answerCount() {
@@ -154,12 +163,11 @@ function answerCount() {
 
 	if(answerClock === 0) {
 		questionNum++;
+		answerChoice.length = 0;
 		resetQuestionTimer();
 		stopAnswerClock();
 		askQuestion();
 	}
-
-
 }
 
 function questionCount() {
@@ -169,6 +177,7 @@ function questionCount() {
 	console.log(questionTimer);
 	if(questionClock === 0) {
 		stopQuestionClock();
+		timeout();
 	}
 	$("#timer").text("Time Remaining: " + questionClock);
 }
@@ -187,12 +196,17 @@ function resetQuestionTimer() {
 	console.log(questionClock);
 	console.log(questionTimer);
 }
+
+function resetAnswerTimer() {
+	clearInterval(answerTimer);
+	answerClock = 5;
+
+}
 // askQuestion();
 
 
 
 
-askQuestion();
 </script>
 
 </html>

@@ -89,6 +89,7 @@ function askQuestion() {
 	$("#optionThree").val(options[questionNum][2]);
 	$("#optionFour").val(options[questionNum][3]);
 
+}
 //grabs the value of a clicked option & enters it into the answerChoice array//
 	$(".options").on("click", function() {
 		answerChoice.push($(this).val());
@@ -101,7 +102,6 @@ function askQuestion() {
 		}	
 	})
 	
-}
 
 
 //When called, checkAnswer does the following//
@@ -121,6 +121,7 @@ function askQuestion() {
 	//incorrect++//
 	//starts the answer timer//
 	//runs resetQuestionTimer(), which clearIntervals(questionTimer), and sets questionClock to 10 again//
+
 function wrongAnswer() {
 	$("#question-screen").hide();
 	$("#answer-screen").show();

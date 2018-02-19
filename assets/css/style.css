@@ -75,10 +75,15 @@ body {
 	font-size: 45px;
 }
 
-#correct-num, #incorrect-num, #unanswered-num, #replay {
+#correct-num, #incorrect-num, #unanswered-num, #replay, #begin {
 	font-size: 35px;
 	text-align: center;
 	position: absolute;
+
+}
+
+#begin {
+	left: 630px;
 
 }
 

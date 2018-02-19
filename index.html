@@ -15,6 +15,9 @@
 <section id="start-screen">
 	<div id="welcome">
 		<h1>Welcome to Chappelle's Show Trivia!</h1></div>
+	<div id="welcome-gif">
+		<img src="https://github.com/maxfaneuff/TriviaGame/blob/master/assets/images/prince.gif?raw=true" alt="prince">
+	</div>
 	<div id="begin">Click to Begin!</div>
 </section>
 
@@ -78,6 +81,7 @@ $(document).ready(function() {
 	$("#question-screen").hide();
 	$("#answer-screen").hide();
 	$("#results-screen").hide();
+	clearInterval(questionTimer);
 })
 
 function newGame() {
@@ -137,6 +141,10 @@ function askQuestion() {
 
 	$("#replay").on("click", function() {
 		newGame();
+	})
+
+	$("#begin").on("click", function() {
+		askQuestion();
 	})
 
 //When called, checkAnswer does the following//

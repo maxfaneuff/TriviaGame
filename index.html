@@ -4,6 +4,9 @@
 	<title>Chappelle's Show Trivia!</title>
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Black+Ops+One" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
+
 <!-- 	<script type="text/javascript" src="assets/javascript/app.js"></script>
  --></head>
 <body>
@@ -47,8 +50,15 @@
 </section>
 
 </body>
+
 <script type="text/javascript">
 	//Trivia game JS//
+
+//~~~***BUGS!***~~~//
+	//1) Clock doesn't reset back to 10 before counting down again.  It shows the remaining time from the 
+	//	 previous question, so questionNum isn't being reset to 10
+	//2) When I copy/paste my JS to my app page & comment it out here, I lose all my onClick functionality.
+	//	 But my intervals still work, so it is reading my JS from my app page
 
 var questionTimer;
 //holds the interval of the question.  when askQuestion runs, start decrementing the interval of this by 1, until it gets to 0.  If it hits zero before anything is clicked, run checkAnswer.  When checkAnswer runs, clearInterval(questionTimer).  Print this to the timer div//

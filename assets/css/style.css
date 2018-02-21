@@ -64,66 +64,85 @@ body {
 }
 
 #win-lose {
+	font-family: 'Black Ops One', cursive;
 	font-size: 45px;
 	position: absolute;
-	top: 200px;
-	left: 450px;
+	top: 100px;
+	left: 550px;
+	width: 400px;
 }
 
-#gif, #end-gif {
+#gif {
+	display: block;
+	margin-top: 250px;
+
+}
+
+#end-gif {
 	position: absolute;
-	left: 450px;
 	top: 250px;
+	left: 500px;
 }
 
 .options {
 	font-family: 'Oswald', sans-serif;
 	font-size: 35px;
 	height: 50px;
-	width: 200px;
+	width: 400px;
 	text-align: center;
 	position: relative;
 	top: 275px;
-	left: 1px;
+	left: 550px;
+	margin: 0px;
 
 	
 }
 
 
 #results {
+	font-family: 'Black Ops One', cursive;
 	text-align: center;
-	font-size: 45px;
+	font-size: 55px;
+	margin-top: 10px;
 }
+
+
 
 #correct-num, #incorrect-num, #unanswered-num, #replay, #begin {
 	font-size: 35px;
-	text-align: center;
-	position: absolute;
+/*	text-align: center;
+*/	position: absolute;
 
 }
 
 
 #correct-num {
-	top: 100px;
-	left: 550px;
+	font-family: 'Oswald', sans-serif;
+	top: 90px;
+	left: 650px;
+	text-align: center;
 
 }
 
 #incorrect-num {
-	top: 150px;
-	left: 550px;
+	font-family: 'Oswald', sans-serif;
+	top: 140px;
+	left: 640px;
 
 }
 
 #unanswered-num {
-	top: 200px;
-	left: 550px;
+	font-family: 'Oswald', sans-serif;
+	top: 190px;
+	left: 620px;
 
 }
 
 #replay {
+	font-family: 'Black Ops One', cursive;
 	left: 1100px;
-	top: 400px;
+	top: 300px;
+	width: 100px;
 }
 
 .options div:hover {

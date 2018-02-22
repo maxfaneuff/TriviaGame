@@ -128,7 +128,7 @@ function timeout() {
 
 function answerCount() {
 	answerClock--;
-	questionClock = 10;
+	
 	if(answerClock === 0) {
 		questionNum++;
 			if(questionNum > 4) {

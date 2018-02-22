@@ -145,10 +145,8 @@ body {
 	width: 100px;
 }
 
-.options div:hover {
-	width: 200px;
-	height:25px;
-	background-color: blue;
+div.options:hover {
+	background: rgb(64,199,246);
 	border-width: 1px;
 	border-style: solid;
 	border-color: silver;
